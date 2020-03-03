@@ -7,7 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibrairieDB;
 using TPLibrairiev03;
-
+/*
+ * 
+ *                   C3-B3
+ * 
+ *              Bruno Andrieu
+ *              Allan Bousquet
+ *              Lewis Lalande
+ * 
+ * 
+ * 
+ */
 namespace TP_Web.Views
 {
     public class ArticlesController : Controller
