@@ -10,7 +10,17 @@ namespace TPLibrairiev03.EFClasses
     // le implement est ici représenté par ':'
     public class ArticleRepoEF : IArticleRepository
     {
-        public LibrairieDbContext db = new LibrairieDbContext();
+        //public LibrairieDbContext db = new LibrairieDbContext();
+
+        public LibrairieDbContext db;
+        private readonly IPositionMagasin positionMagasin;
+
+
+        public ArticleRepoEF(LibrairieDbContext db, IPositionMagasin positionMagasin)
+        {
+            this.db = db;
+            this.positionMagasin = positionMagasin;
+        }
 
         public Article FindById(int id)
         {
@@ -94,8 +104,8 @@ namespace TPLibrairiev03.EFClasses
         public decimal GetNombreOcurrenceArticle(Article article)
         {
             var qte = 0;
-            PositionMagasinRepoEF pos = new PositionMagasinRepoEF();
-            ICollection<PositionMagasin> positionsMagasin = pos.GetAllPositions();
+            //PositionMagasinRepoEF pos = new PositionMagasinRepoEF();
+            ICollection<PositionMagasin> positionsMagasin = positionMagasin.GetAllPositions();
 
             foreach (PositionMagasin posi in positionsMagasin)
             {

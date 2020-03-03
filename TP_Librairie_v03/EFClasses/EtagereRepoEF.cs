@@ -10,7 +10,12 @@ namespace TPLibrairiev03.EFClasses
     // le implement est ici représenté par ':'
     public class EtagereRepoEF : IEtagere
     {
-        public LibrairieDbContext db = new LibrairieDbContext();
+        public LibrairieDbContext db;
+
+        public EtagereRepoEF(LibrairieDbContext db)
+        {
+            this.db = db;
+        }
 
         public Etagere FindById(int id)
         {

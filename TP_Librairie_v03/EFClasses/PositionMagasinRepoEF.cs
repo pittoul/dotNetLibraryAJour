@@ -10,7 +10,15 @@ namespace TPLibrairiev03.EFClasses
     // le implement est ici représenté par ':'
     public class PositionMagasinRepoEF : IPositionMagasin
     {
-        public LibrairieDbContext db = new LibrairieDbContext();
+        //public LibrairieDbContext db = new LibrairieDbContext();
+
+        public LibrairieDbContext db;
+
+        // Constructeur
+        public PositionMagasinRepoEF(LibrairieDbContext db)
+        {
+            this.db = db;
+        }
 
         public PositionMagasin FindById(int idArticle, int idEtagere)
         {

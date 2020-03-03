@@ -13,6 +13,12 @@ namespace LibrairieDB
         public DbSet<Secteur> Secteurs { get; set; }
         public DbSet<PositionMagasin> PositionMagasins { get; set; }
 
+        public LibrairieDbContext(DbContextOptions<LibrairieDbContext> options)
+            : base(options)
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /**

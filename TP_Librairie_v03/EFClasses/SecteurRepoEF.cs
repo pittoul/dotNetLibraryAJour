@@ -10,8 +10,20 @@ namespace TPLibrairiev03.EFClasses
 {
     // le implement est ici représenté par ':'
     public class SecteurRepoEF : ISecteur
+
     {
-        public LibrairieDbContext db = new LibrairieDbContext();
+        //public LibrairieDbContext db = new LibrairieDbContext();
+
+        public LibrairieDbContext db;
+        private readonly IArticleRepository articleRepository;
+        private readonly IPositionMagasin positionMagasin;
+
+        public SecteurRepoEF(LibrairieDbContext db, IArticleRepository articleRepository, IPositionMagasin positionMagasin)
+        {
+            this.db = db;
+            this.articleRepository = articleRepository;
+            this.positionMagasin = positionMagasin;
+        }
 
         public Secteur FindById(int id)
         {
@@ -39,7 +51,7 @@ namespace TPLibrairiev03.EFClasses
             return db.Secteurs.Include(s => s.Etageres).ToList();
         }
 
-     
+
 
         public void Insert(Secteur secteur)
         {
@@ -62,12 +74,12 @@ namespace TPLibrairiev03.EFClasses
 
         public decimal GetPrixMoyenParSecteur(Secteur secteur)
         {
-            ArticleRepoEF aef = new ArticleRepoEF();
+            //    ArticleRepoEF aef = new ArticleRepoEF();
             ICollection<Etagere> etageres = secteur.Etageres;
             var prix = 0m;
 
-            List<Article> articles = aef.GetAllArticlesBySecteur(secteur);
-                
+            List<Article> articles = articleRepository.GetAllArticlesBySecteur(secteur);
+
             foreach (Article a in articles)
             {
                 prix += a.PrixInitial;
@@ -79,17 +91,19 @@ namespace TPLibrairiev03.EFClasses
         public decimal GetQteArticlesParSecteur(Secteur secteur)
         {
             var qte = 0m;
-            PositionMagasinRepoEF posEF = new PositionMagasinRepoEF();
-            List < PositionMagasin> positions = posEF.GetAllPositions();
+            //PositionMagasinRepoEF posEF = new PositionMagasinRepoEF();
 
-            ArticleRepoEF aef = new ArticleRepoEF();
-            List<Article> articles = aef.GetAllArticlesBySecteur(secteur);
+            List<PositionMagasin> positions = positionMagasin.GetAllPositions();
+
+            //ArticleRepoEF aef = new ArticleRepoEF();
+
+            List<Article> articles = articleRepository.GetAllArticlesBySecteur(secteur);
 
             ICollection<Etagere> etList = secteur.Etageres;
 
-            foreach(Etagere et in etList)
+            foreach (Etagere et in etList)
             {
-                foreach(PositionMagasin etPos in positions)
+                foreach (PositionMagasin etPos in positions)
                 {
                     if (et.Id == etPos.IdEtagere)
                     {
@@ -111,15 +125,15 @@ namespace TPLibrairiev03.EFClasses
         {
 
             var poidsSecteur = 0m;
-            ArticleRepoEF aef = new ArticleRepoEF();
+            //ArticleRepoEF aef = new ArticleRepoEF();
 
             ICollection<Etagere> etList = secteur.Etageres;
 
             var poidsEtagere = 0m;
 
-            foreach(Etagere et in etList)
+            foreach (Etagere et in etList)
             {
-                poidsSecteur += aef.GetPoidsArticlesSurEtagere(et);
+                poidsSecteur += articleRepository.GetPoidsArticlesSurEtagere(et);
                 poidsEtagere += et.PoidsMaximum;
             }
 
