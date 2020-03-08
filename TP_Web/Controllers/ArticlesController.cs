@@ -22,6 +22,13 @@ namespace TP_Web.Views
 {
     public class ArticlesController : Controller
     {
+        //private readonly LibrairieDbContext _context;
+
+        //public ArticlesController(LibrairieDbContext context)
+        //{
+        //    _context = context;
+        //}
+
         private readonly LibrairieDbContext _context;
 
         public ArticlesController(LibrairieDbContext context)

@@ -12,6 +12,13 @@ namespace TP_Web.Controllers
 {
     public class SecteursController : Controller
     {
+        /***
+         *   Conseil. Dans ton controller tu fais 
+         *    MyRepository myRepository = new Repository(context)
+       *    myrepository.maMethodeCustom()
+         * 
+         * 
+         */
         private readonly LibrairieDbContext _context;
 
         public SecteursController(LibrairieDbContext context)
@@ -24,6 +31,12 @@ namespace TP_Web.Controllers
         {
             return View(await _context.Secteurs.ToListAsync());
         }
+
+        //// GET: EtageresParSecteur
+        //public async Task<IActionResult> lesEtageresDuSecteur(int? id)
+        //{
+        //    return View(await _context.Secteurs.ToListAsync());
+        //}
 
         // GET: Secteurs/Details/5
         public async Task<IActionResult> Details(int? id)
